@@ -1,0 +1,10 @@
+-- 코드를 입력하세요
+SELECT DISTINCT CART_ID
+FROM CART_PRODUCTS
+WHERE CART_ID IN (SELECT CART_ID
+                 FROM CART_PRODUCTS
+                 WHERE NAME LIKE 'MILK'
+                 OR NAME LIKE 'YOGURT'
+                 GROUP BY CART_ID
+                 HAVING COUNT(DISTINCT NAME)>=2)
+ORDER BY 1;

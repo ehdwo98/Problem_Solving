@@ -1,37 +1,30 @@
-import sys
-sys.setrecursionlimit(10000)
+import sys 
+sys.setrecursionlimit(10000) 
 
+t=int(input())
 
-def dfs(x, y):
-    dx = [1, -1, 0, 0]
-    dy = [0, 0, 1, -1]
+D=[(-1,0),(1,0),(0,1),(0,-1)]
 
-    # 상,하,좌,우 확인
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
+def dfs(y,x):
+    for dy,dx in D:
+        ny,nx=y+dy,x+dx
+        if (m>nx>=0) and (n>ny>=0) and arr[ny][nx]==1:
+            arr[ny][nx]=0
+            dfs(ny,nx)
+
+for _ in range(t):
+    m,n,k=map(int,input().split())
+    arr=[[0 for _ in range(m)]for _ in range(n)]
+    res=0
     
-        if (0 <= nx < N) and (0 <= ny < M):
-            if matrix[nx][ny] == 1:
-                matrix[nx][ny] = -1
-                dfs(nx, ny)
-
-
-T = int(input())
-for _ in range(T):
-    M, N, K = map(int, input().split())
-    matrix = [[0]*M for _ in range(N)]
-    cnt = 0
-
-    # 행렬 생성
-    for _ in range(K):
-        m, n = map(int, input().split())
-        matrix[n][m] = 1
-
-    for i in range(N):  # 행 (바깥 리스트)
-        for j in range(M):  # 열 (내부 리스트)
-            if matrix[i][j] > 0:
-                dfs(i, j)
-                cnt += 1
-
-    print(cnt)
+    for _ in range(k):
+        x,y=map(int,input().split())
+        arr[y][x]=1
+        
+    for a in range(m):
+        for b in range(n):
+            if arr[b][a]==1:
+                dfs(b,a)
+                res+=1
+                
+    print(res)

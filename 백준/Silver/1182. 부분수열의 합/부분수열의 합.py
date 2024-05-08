@@ -1,20 +1,16 @@
-from itertools import combinations
-
 n,s=map(int,input().split())
 arr=list(map(int,input().split()))
 
 ans=0
-hap=[]
-def func(k):
+def func(k,hap):
     global ans
-    if k>n:
+    if k>=n:
         return
-    combi=list(combinations(arr,k))
-    for c in combi:
-        if sum(c)==s:
-            ans+=1
-    else:
-        func(k+1)
+    hap+=arr[k]
+    if hap==s:
+        ans+=1
+    func(k+1,hap)
+    func(k+1,hap-arr[k])
 
-func(1)
+func(0,0)
 print(ans)

@@ -1,9 +1,20 @@
-from itertools import combinations
+import sys
 
-n,m=map(int,input().split())
-arr=[i+1 for i in range(n)]
+n,m=map(int,sys.stdin.readline().split())
 
-ans=list(combinations(arr,m))
+isused=[0]*n
+arr=[]
 
-for a in ans:
-    print(*a)
+def nm2(k,idx):
+    if k==m:
+        print(*arr)
+        return
+    for i in range(idx,n):
+        if isused[i]==0:
+            arr.append(i+1)
+            isused[i]=1
+            nm2(k+1,i+1)
+            isused[i]=0
+            arr.pop()
+
+nm2(0,0)

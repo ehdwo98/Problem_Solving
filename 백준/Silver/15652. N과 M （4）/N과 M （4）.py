@@ -1,14 +1,19 @@
-N,M=map(int,input().split())
+import sys
+sys.setrecursionlimit(10**6)
+n,m=map(int,sys.stdin.readline().split())
 
-array=[i for i in range(1,N+1)]
+arr=[]
 
-def combi(array, r):
-    for i in range(len(array)):
-        if r == 1:
-            yield [array[i]]
-        else:
-            for next in combi(array[i:], r-1):
-                yield [array[i]] + next
+def nm3(k):
+    if k==m:
+        print(*arr)
+        return
+    idx=0
+    if k!=0:
+        idx=arr[-1]-1
+    for i in range(idx,n):
+        arr.append(i+1)
+        nm3(k+1)
+        arr.pop()
 
-for i in combi(array,M):
-    print(" ".join(map(str,i)))
+nm3(0)

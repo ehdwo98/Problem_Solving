@@ -4,24 +4,22 @@ n,m=map(int,sys.stdin.readline().split())
 
 arr=list(map(int,sys.stdin.readline().split()))
 arr.sort()
+
 isused=[0]*n
 arr2=[]
-arr3=[]
-tmp=[]
-def nm9(k):
-    if k==m:
-        arr3.append(tuple(arr2))
+
+def nm9():
+    if len(arr2)==m:
+        print(*arr2)
         return
+    remember=0
     for i in range(n):
-        if isused[i]==0:
+        if isused[i]==0 and remember!=arr[i]:
             isused[i]=1
             arr2.append(arr[i])
-            nm9(k+1)
+            remember=arr[i]
+            nm9()
             isused[i]=0
             arr2.pop()
 
-nm9(0)
-arr3=list(set(arr3))
-arr3.sort()
-for a in arr3:
-    print(*a)
+nm9()

@@ -7,7 +7,7 @@ arr.sort()
 
 arr2=[]
 
-def nm10():
+def nm11():
     if len(arr2)==m:
         print(*arr2)
         return
@@ -16,7 +16,7 @@ def nm10():
         if remember!=arr[i]:
             arr2.append(arr[i])
             remember=arr[i]
-            nm10()
+            nm11()
             arr2.pop()
 
-nm10()
+nm11()

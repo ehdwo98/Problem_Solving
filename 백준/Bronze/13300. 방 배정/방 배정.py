@@ -1,5 +1,6 @@
 from collections import Counter
 import sys
+import math
 input=sys.stdin.readline
 n,k=map(int,input().split())
 arr=[]
@@ -9,8 +10,7 @@ for _ in range(n):
 
 C=list(Counter(arr).items())
 cnt=0
+#print(C)
 for c in C:
-    if c[1]>k:
-        cnt+=1
-    cnt+=1
+    cnt+=math.ceil(c[1]/k)
 print(cnt)

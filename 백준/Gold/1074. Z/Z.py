@@ -1,8 +1,18 @@
 N,r,c=map(int,input().split())
 
-def cal(N,r,c,):
-    if N==0:
-        return 0
-    return 2*(r%2)+(c%2)+4*cal(N-1,r//2,c//2)
-
-print(cal(N,r,c))
+cnt=0
+while N:#분할
+    N-=1
+    if r<2**N and c<2**N:
+        cnt+=(2**N)*(2**N)*0
+    elif r<2**N and c>=2**N:
+        cnt+=(2**N)*(2**N)*1
+        c-=(2**N)
+    elif r>=2**N and c<2**N:
+        cnt+=(2**N)*(2**N)*2
+        r-=(2**N)
+    else:
+        cnt+=(2**N)*(2**N)*3
+        r-=(2**N)
+        c-=(2**N)
+print(cnt)

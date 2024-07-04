@@ -1,11 +1,19 @@
 T=int(input())
 
-arr=[0]*11
-arr[1]=1
-arr[2]=2
-arr[3]=4
+def dp(x):
+    if x>n:
+        return
+    if x>3:
+        arr[x]+=1
+    dp(x+1)
+    dp(x+2)
+    dp(x+3)
+
 for _ in range(T):
     n=int(input())
-    for i in range(4,n+1):
-        arr[i]=arr[i-1]+arr[i-2]+arr[i-3]
+    arr=[0]*11
+    arr[1]=1
+    arr[2]=2
+    arr[3]=4
+    dp(0)
     print(arr[n])

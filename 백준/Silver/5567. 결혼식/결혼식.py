@@ -1,33 +1,31 @@
 import sys
-from collections import deque
 input=sys.stdin.readline
 
 n=int(input())
 m=int(input())
 
-graph=list([] for _ in range(n+1))
-visited=[0]*(n+1)
+dic=dict()
+dic[1]=[]
 
 for _ in range(m):
    a,b=map(int,input().split())
-   graph[a].append(b)
-   graph[b].append(a)
+   if a not in dic:
+      dic[a]=list()
+   if b not in dic:
+      dic[b]=list()
+   dic[a].append(b)
+   dic[b].append(a)
 
-def bfs():
-   q=deque()
-   q.append(1)
-   visited[1]=1
-   while q:
-      f_num=q.popleft()
-      for ff_num in graph[f_num]:
-         if visited[ff_num]==0:
-            q.append(ff_num)
-            visited[ff_num]=visited[f_num]+1
+ans=[]
+for i in dic[1]:
+   ans.append(i)
+   if i in dic:
+      for j in dic[i]:
+         ans.append(j)
 
-bfs()
-ans=0
-for i in range(2,n+1):
-   if 0<visited[i]<=3:
-      ans+=1
+ans=set(ans)
 
-print(ans)
+if len(ans)>0:
+   print(len(ans)-1)
+else:
+   print(0)

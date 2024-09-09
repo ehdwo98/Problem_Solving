@@ -19,7 +19,6 @@ def bfs():
    visited[1]=1
    while q:
       f_num=q.popleft()
-      visited[f_num]
       for ff_num in graph[f_num]:
          if visited[ff_num]==0:
             q.append(ff_num)

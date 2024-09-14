@@ -12,4 +12,4 @@ ans=0
 for i in range(l):
    ans+=(arr[i]*(r**i))%M
 
-print(ans)
+print(ans%M)

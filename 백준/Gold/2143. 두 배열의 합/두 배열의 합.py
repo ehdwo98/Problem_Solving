@@ -25,8 +25,6 @@ for i in range(len(arr)):
 res1.sort()
 res2.sort()
 
-if set(res2)>set(res1):
-   res1,res2=res2,res1
 
 count=Counter(res2)
 

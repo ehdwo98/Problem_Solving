@@ -1,4 +1,4 @@
-import bisect
+from collections import Counter
 import sys
 input=sys.stdin.readline
 
@@ -25,10 +25,13 @@ for i in range(len(arr)):
 res1.sort()
 res2.sort()
 
+if set(res2)>set(res1):
+   res1,res2=res2,res1
+
+count=Counter(res2)
+
 ans=0
-for i in range(len(res1)):
-   l=bisect.bisect_left(res2,T-res1[i])
-   r=bisect.bisect_right(res2,T-res1[i])
-   ans+=(r-l)
+for n in res1:
+   ans+=count[T-n]
 
 print(ans)

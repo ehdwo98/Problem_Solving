@@ -1,34 +1,33 @@
 from collections import deque
 
-N,M,V=map(int,input().split())
-
-graph=[[0]*(N+1)for _ in range(N+1)]
-visit1=[0]*(N+1)
-visit2=[0]*(N+1)
-
-for _ in range(M):
+n,m,v=map(int,input().split())
+graph=list([] for _ in range(n+1))
+visited=[0]*(n+1)
+for _ in range(m):
     a,b=map(int,input().split())
-    graph[a][b]=graph[b][a]=1
+    graph[a].append(b)
+    graph[b].append(a)
 
-def dfs(V):
-    visit1[V]=1
-    print(V,end=" ")
-    for i in range(1,N+1):
-        if visit1[i]==0 and graph[V][i]==1:
-            dfs(i)
+graph=list(sorted(g) for g in graph)
+# print(graph)
 
-def bfs(V):
-    q=deque()
-    q.append(V)
-    visit2[V]=1
-    while q:
-        V=q.popleft()
-        print(V,end=" ")
-        for i in range(1,N+1):
-            if visit2[i]==0 and graph[V][i]==1:
-                q.append(i)
-                visit2[i]=1
-
-dfs(V)
+def dfs(v,graph,visited):
+    visited[v]=1
+    print(v,end=' ')
+    for i in graph[v]:
+        if not visited[i]:
+            dfs(i,graph,visited)
+dfs(v,graph,visited)
 print()
-bfs(V)
+visited=[0]*(n+1)
+def bfs(v,graph,visited):
+    q=deque([v])
+    visited[v]=1
+    while q:
+        p=q.popleft()
+        print(p,end=' ')
+        for i in graph[p]:
+            if not visited[i]:
+                q.append(i)
+                visited[i]=1
+bfs(v,graph,visited)

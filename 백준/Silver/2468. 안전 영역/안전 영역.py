@@ -1,37 +1,33 @@
-import sys
-input=sys.stdin.readline
+#안전한 영역 최대 몇개 -> bfs로 접근
 from collections import deque
-from copy import deepcopy
-
 
 n=int(input())
-gr=list(list(map(int,input().split())) for _ in range(n))
-
-res=0
-for g in gr:
-    if res < max(g):
-        res=max(g)
-
-D=[(1,0),(0,1),(-1,0),(0,-1)]
-
+graph=list(list(map(int,input().split())) for _ in range(n))
+max_h=0
+for g in graph:
+    for i in g:
+        if i>max_h:
+            max_h=i
+# print(graph)
+D=[(1,0),(-1,0),(0,1),(0,-1)]
 ans=[]
-for i in range(res):
-    q=deque()
-    graph=deepcopy(gr)
+for h in range(max_h):
     cnt=0
-    for r in range(n):
-        for c in range(n):
-            if graph[r][c]>i:
-                q.append([r,c])
+    visited=list([0]*n for _ in range(n))
+    for i in range(n):
+        for j in range(n):
+            if graph[i][j]>h and not visited[i][j]:
+                # print(i,j)
+                q=deque()
+                q.append([i,j])
                 while q:
                     x,y=q.popleft()
-                    graph[x][y]=i
+                    visited[x][y]=1
                     for dx,dy in D:
                         nx,ny=x+dx,y+dy
-                        if 0<=nx<n and 0<=ny<n and graph[nx][ny]>i:
+                        if 0<=nx<n and 0<=ny<n and graph[nx][ny]>h and not visited[nx][ny]:
+                            visited[nx][ny]=1
                             q.append([nx,ny])
-                            graph[nx][ny]=i
                 cnt+=1
     ans.append(cnt)
-
-print(max(ans))                    
+print(max(ans))

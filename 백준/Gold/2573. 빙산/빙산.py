@@ -1,8 +1,5 @@
 #빙산이 분리되는 최초의 시간 -> BFS로 덩어리 수 계산
 from collections import deque
-import sys
-
-input=sys.stdin.readline
 
 n,m=map(int,input().split())
 graph=list(list(map(int,input().split())) for _ in range(n))

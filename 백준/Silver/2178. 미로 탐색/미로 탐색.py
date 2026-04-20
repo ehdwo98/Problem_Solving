@@ -1,13 +1,16 @@
-# 최소의 칸 수 -> BFS deque사용
+#지나야 하는 최소의 칸 수 -> BFS
 from collections import deque
+
 n,m=map(int,input().split())
-graph=list(list(map(int,list(input()))) for _ in range(n))
-visited=list([0]*m for _ in range(n))
+graph=list(list(map(int,input())) for _ in range(n))
 # print(graph)
+visited=list([0]*m for _ in range(n))
+
+D=[(1,0),(-1,0),(0,1),(0,-1)]
+
 q=deque()
+visited[0][0]=1
 q.append([0,0])
-visited[0][0]=1 # 1,1 칸
-D=[(0,1),(0,-1),(1,0),(-1,0)]#서로 인전한 칸
 while q:
     x,y=q.popleft()
     for dx,dy in D:

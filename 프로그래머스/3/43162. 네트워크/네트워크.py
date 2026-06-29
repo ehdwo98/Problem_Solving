@@ -1,18 +1,22 @@
-def find(num,networks):
-    if networks[num]!=num:
-        return find(networks[num],networks)
-    return num
-
+def find(parents,num):
+    if parents[num]==num:
+        return num
+    return find(parents,parents[num])
 def solution(n, computers):
-    networks=list(_ for _ in range(n))
+    answer = 0
+    parents=list(x for x in range(n))
     for i in range(n):
         for j in range(n):
             if computers[i][j]==1:
-                fi=find(i,networks)
-                fj=find(j,networks)
-                if fi<fi:
-                    networks[fj]=fi
+                a=find(parents,i)
+                b=find(parents,j)
+                print(a,b)
+                if a<b:
+                    parents[b]=a
                 else:
-                    networks[fi]=fj
-    answer=len(set(find(x,networks) for x in range(n)))
+                    parents[a]=b
+                print(parents)
+    tmp=list(find(parents,i) for i in range(n))
+    print(tmp)
+    answer=len(set(list(find(parents,i) for i in range(n))))
     return answer

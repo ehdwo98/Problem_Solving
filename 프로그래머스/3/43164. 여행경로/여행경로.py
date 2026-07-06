@@ -1,23 +1,19 @@
-#백트래킹 DFS
-
-def dfs(path,tickets,used,n):
-    if len(path)==n+1:
-        return 1
-    for i,values in enumerate(tickets):
-        s,e=values
-        if not used[i] and path[-1]==s:
-            used[i]=1
-            path.append(e)
-            if dfs(path,tickets,used,n):
-                return 1
-            used[i]=0
-            path.pop()
-    return 0
-
 def solution(tickets):
+    answer = []
     tickets.sort()
     n=len(tickets)
-    used=[0]*n
-    path=["ICN"]
-    dfs(path,tickets,used,n)
-    return path
+    visited=[0]*n
+    def dfs(path):
+        if len(path)==n+1:
+            answer.extend(path)
+            return True
+        cur=path[-1]
+        for i in range(n):
+            if not visited[i] and cur==tickets[i][0]:
+                visited[i]=1
+                if dfs(path+[tickets[i][1]]):
+                    return True
+                visited[i]=0
+        return False
+    dfs(['ICN'])
+    return answer
